@@ -2,8 +2,8 @@ import { useNavigation } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity} from 'react-native'
 
-import { auth,db } from '../Firebase'
-import {collection,getDocs } from "firebase/firestore"
+import { auth,firestore } from '../Firebase'
+import {collection,doc,getDocs } from "firebase/firestore"
 import Footer from '../Components/Footer'
 
 import Colors from "../Colors"
@@ -11,39 +11,20 @@ import Colors from "../Colors"
 
 const Home = () => {
     const navigation  = useNavigation()
+    
+    const [time, setTime] = useState([]);
 
-      const [users, setUsers] = useState([]);
-      const userCollectionRef = collection(db, "users")
+    
 
-      useEffect(() => {
-
-        const getUsers = async () => {
-            const data = await getDocs(userCollectionRef)
-            setUsers(data.docs.map((doc) => ({...doc.data() , id:doc.id})))
-
-            console.log("working")
-        }
-
-        getUsers()
-      }, [])
+    
 
     return (
         <View style = {styles.container}>
-            <Text style = {styles.headerText}>Home</Text>
+            <Text style = {styles.headerText}>~Data~</Text>
 
             <View>
               <Text style = {styles.headerText}>
-                {users.map ((user) => {
-                  return (
-                    <Text>
-                      {""} 
-                      <Text key ={user.id}>
-                        name: {user.name}
-                      </Text>
-                      
-                    </Text>
-                  )
-                })}
+                {}
               </Text>
             </View>
 
@@ -101,3 +82,34 @@ const styles = StyleSheet.create({
         fontSize: 22
       }
 })
+
+
+/*
+const [users, setUsers] = useState([]);
+      const userCollectionRef = collection(db, "users")
+
+      useEffect(() => {
+
+        const getUsers = async () => {
+            const data = await getDocs(userCollectionRef)
+            setUsers(data.docs.map((doc) => ({...doc.data() , id:doc.id})))
+
+            console.log("working")
+        }
+
+        getUsers()
+      }, [])
+
+
+      {users.map ((user) => {
+                  return (
+                    <Text>
+                      {""} 
+                      <Text key ={user.id}>
+                        name: {user.name}
+                      </Text>
+                      
+                    </Text>
+                  )
+                })}
+*/
