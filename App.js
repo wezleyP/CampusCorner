@@ -10,7 +10,6 @@ import Profile from './screens/Profile';
 import Colors from "./Colors"
 
 const Stack = createNativeStackNavigator();
-const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (

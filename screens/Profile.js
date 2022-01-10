@@ -1,6 +1,7 @@
 import {useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import Footer from '../Components/Footer'
 import { auth } from '../Firebase'
 
 const Profile = () => {
@@ -16,7 +17,7 @@ const Profile = () => {
     }
     return (
         <View style = {styles.container}>
-            <Text>Email: {auth.currentUser?.email}</Text>
+            <Text style = {styles.text}>Email: {auth.currentUser?.email}</Text>
             <TouchableOpacity
                 onPress={handleSignOut}
                 style={styles.buttonOutline}
@@ -25,15 +26,12 @@ const Profile = () => {
                         Sign Out
                     </Text>
                 </TouchableOpacity>
-                <TouchableOpacity
-                onPress={() => navigation.push("Home")}
-                style={styles.buttonOutline}
-                >
-                    <Text style={styles.buttonOutlineText}>
-                        Home
-                    </Text>
-                </TouchableOpacity>
+                
+                
+            <Footer></Footer>
+                
         </View>
+        
     )
 }
 
@@ -43,9 +41,8 @@ const styles = StyleSheet.create({
 
     container: {
         flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
         justifyContent: 'center',
+        alignItems: 'center',
       },
       buttonContainer: {
         width: '60%',
@@ -78,4 +75,7 @@ const styles = StyleSheet.create({
         fontWeight: '700',
         fontSize: 15
       },
+      text: {
+          fontSize: 30,
+      }
 })

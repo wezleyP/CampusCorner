@@ -1,24 +1,53 @@
 import { useNavigation } from '@react-navigation/native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity} from 'react-native'
+
+import { auth,db } from '../Firebase'
+import {collection,getDocs } from "firebase/firestore"
+import Footer from '../Components/Footer'
+
 import Colors from "../Colors"
 
-const Home = () => {
 
+const Home = () => {
     const navigation  = useNavigation()
 
-    return (
-        <View>
-            <Text>Home</Text>
+      const [users, setUsers] = useState([]);
+      const userCollectionRef = collection(db, "users")
 
-            <TouchableOpacity
-                onPress={() => navigation.navigate("Profile")}
-                style={styles.buttonOutline}
-                >
-                    <Text style={styles.buttonOutlineText}>
-                        Profile
+      useEffect(() => {
+
+        const getUsers = async () => {
+            const data = await getDocs(userCollectionRef)
+            setUsers(data.docs.map((doc) => ({...doc.data() , id:doc.id})))
+
+            console.log("working")
+        }
+
+        getUsers()
+      }, [])
+
+    return (
+        <View style = {styles.container}>
+            <Text style = {styles.headerText}>Home</Text>
+
+            <View>
+              <Text style = {styles.headerText}>
+                {users.map ((user) => {
+                  return (
+                    <Text>
+                      {""} 
+                      <Text key ={user.id}>
+                        name: {user.name}
+                      </Text>
+                      
                     </Text>
-                </TouchableOpacity>
+                  )
+                })}
+              </Text>
+            </View>
+
+                <Footer />
         </View>
     )
 }
@@ -44,7 +73,7 @@ const styles = StyleSheet.create({
         marginTop: 40
       },
       button: {
-        backgroundColor: '#D75A5A',
+        backgroundColor: Colors.primary,
         width: "100%",
         padding: 15,
         borderRadius: 10,
@@ -62,10 +91,13 @@ const styles = StyleSheet.create({
         padding: 15,
         borderRadius: 10,
       },
-      
       buttonText: {
         color: 'white',
         fontWeight: '700',
         fontSize: 15
       },
+      headerText: {
+        fontWeight: '700',
+        fontSize: 22
+      }
 })
