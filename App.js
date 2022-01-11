@@ -1,17 +1,24 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useEffect } from 'react'
+import { LogBox, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Home from './screens/Home';
 import Login from './screens/Login';
 import Profile from './screens/Profile';
 import Colors from "./Colors"
 
+
 const Stack = createNativeStackNavigator();
 
+
+
+
 export default function App() {
+
+  
+
+  
   return (
     <NavigationContainer>
       <Stack.Navigator>

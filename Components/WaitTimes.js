@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
 import { View, Text, StyleSheet} from 'react-native'
 
-import {firestore } from '../Firebase'
+import {firestore} from '../Firebase'
 import {doc,onSnapshot} from "firebase/firestore"
 
 import Colors from "../Colors"

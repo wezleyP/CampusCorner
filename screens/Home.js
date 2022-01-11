@@ -1,18 +1,53 @@
 import { useNavigation } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView} from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, TextInput} from 'react-native'
 
-import {firestore } from '../Firebase'
-import {doc,onSnapshot} from "firebase/firestore"
 import Footer from '../Components/Footer'
 import Wait from '../Components/WaitTimes'
 import Colors from "../Colors"
+
+import RNPickerSelect from 'react-native-picker-select';
 
 const Home = () => {
     const navigation  = useNavigation()
   
     return (
       <View style = {styles.container}>
+        <View style={styles.formView}>
+          <Text style={styles.text}>
+            Want a chance to win free gift cards?
+          </Text>
+          <Text style={styles.text}>
+            Submit your Wait Time at a bar below!
+          </Text>
+            <TextInput
+              style={styles.input}
+              placeholder='Hours'
+            />
+
+            <TextInput
+              style={styles.input}
+              placeholder='Minutes'
+            />
+          <View style={styles.dropDown}>
+           <RNPickerSelect
+           style={{backgroundColor: 'black'}}
+              onValueChange={(value) => console.log(value)}
+              items={[
+                { label: 'Porch', value: 'porch' },
+                { label: 'Nomptons', value: 'nomptons' },
+                
+            ]}
+           />
+          </View>
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonText} >
+                Submit
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
         <ScrollView>
         
           <Wait title ={"Porch"} document = { "Porch/pofevjljX988lklZ1EGC" }/>
@@ -34,34 +69,36 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  waitTimeHeaderText: {
-    color: "white",
-    fontSize: 40,
-  },
-  waitTimeView: {
-    alignItems: "center",
-    justifyContent: 'center',
-    flexWrap: "wrap",
-  },
-  waitTimeTextView: {
-    flexDirection: "row",
-    justifyContent: "center",
-    flexWrap: "wrap",
-    backgroundColor: Colors.lighterDark,
-    borderRadius: 10,
-    width: "98%",
-    padding: 4,
-    marginLeft: 6,
-    shadowColor: Colors.primary,
-    shadowOffset: { width: 3, height: 4 },
-    shadowRadius: 1,
-    elevation: 5,
-    shadowOpacity: 0.8
-  },waitTimeHeaderText: {
-    color: "white",
-    fontSize: 40,
-  },
 
+  formView: {
+   width: "100%",
+   backgroundColor: Colors.lighterDark,
+   alignItems: 'center',
+   justifyContent: 'center'
+  },
+  text: {
+    fontSize: 15,
+  },
+  input: {
+    backgroundColor: Colors.primary,
+    width: "75%",
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: 10,
+    padding: 5,
+    fontSize: 20,
+    borderRadius: 5
+  },
+  dropDown: {
+    backgroundColor: Colors.primary,
+    width: "75%",
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: 10,
+    padding: 5,
+    fontSize: 20,
+    borderRadius: 5
+  },
       buttonContainer: {
         width: '60%',
         justifyContent: 'center',
