@@ -37,7 +37,7 @@ const Wait = (props) => {
           </Text>
           <View style={styles.waitTimeTextView}>
               <Text style={styles.text}>
-                The Average Wait Time at the {title} is
+                The Average Wait Time at {title} is
               </Text>
               <Text style = {styles.text}>
                   Hours: {time.Hours}
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     padding: 4,
     marginLeft: 6,
     shadowColor: Colors.primary,
-    shadowOffset: { width: 3, height: 4 },
+    shadowOffset: { width: 2, height: 3 },
     shadowRadius: 1,
     elevation: 5,
     shadowOpacity: 0.8
