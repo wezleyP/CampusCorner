@@ -1,6 +1,7 @@
 import {useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import Colors from "../Colors"
 import Footer from '../Components/Footer'
 import { auth } from '../Firebase'
 
@@ -43,6 +44,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor: Colors.dark
       },
       buttonContainer: {
         width: '60%',
@@ -61,10 +63,10 @@ const styles = StyleSheet.create({
       buttonOutline: {
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'white',
+        backgroundColor: Colors.primary,
         width: "80%",
         marginTop: 5, 
-        borderColor: '#D75A5A',
+        borderColor: Colors.secondary,
         borderWidth: 2,
         padding: 15,
         borderRadius: 10,
@@ -77,5 +79,6 @@ const styles = StyleSheet.create({
       },
       text: {
           fontSize: 30,
+          color: "white"
       }
 })

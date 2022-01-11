@@ -1,52 +1,67 @@
 import { useNavigation } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity} from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView} from 'react-native'
 
-import { auth,firestore } from '../Firebase'
-import {collection,doc,getDocs } from "firebase/firestore"
+import {firestore } from '../Firebase'
+import {doc,onSnapshot} from "firebase/firestore"
 import Footer from '../Components/Footer'
-
+import Wait from '../Components/WaitTimes'
 import Colors from "../Colors"
-
 
 const Home = () => {
     const navigation  = useNavigation()
-    
-    const [time, setTime] = useState([]);
-
-    
-
-    
-
+  
     return (
-        <View style = {styles.container}>
-            <Text style = {styles.headerText}>~Data~</Text>
+      <View style = {styles.container}>
+        <ScrollView>
+        
+          <Wait title ={"Porch"} document = { "Porch/pofevjljX988lklZ1EGC" }/>
+        </ScrollView>
+        
 
-            <View>
-              <Text style = {styles.headerText}>
-                {}
-              </Text>
-            </View>
-
-                <Footer />
-        </View>
+       <Footer />
+      </View>
     )
 }
 
 export default Home
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-      },
+
+  container: {
+    flex: 1,
+    backgroundColor: Colors.dark,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  waitTimeHeaderText: {
+    color: "white",
+    fontSize: 40,
+  },
+  waitTimeView: {
+    alignItems: "center",
+    justifyContent: 'center',
+    flexWrap: "wrap",
+  },
+  waitTimeTextView: {
+    flexDirection: "row",
+    justifyContent: "center",
+    flexWrap: "wrap",
+    backgroundColor: Colors.lighterDark,
+    borderRadius: 10,
+    width: "98%",
+    padding: 4,
+    marginLeft: 6,
+    shadowColor: Colors.primary,
+    shadowOffset: { width: 3, height: 4 },
+    shadowRadius: 1,
+    elevation: 5,
+    shadowOpacity: 0.8
+  },waitTimeHeaderText: {
+    color: "white",
+    fontSize: 40,
+  },
+
       buttonContainer: {
         width: '60%',
         justifyContent: 'center',
@@ -77,39 +92,33 @@ const styles = StyleSheet.create({
         fontWeight: '700',
         fontSize: 15
       },
-      headerText: {
+      text: {
         fontWeight: '700',
-        fontSize: 22
+        fontSize: 20,
+        color: "white",
+      },
+      space: {
+        width: 10
       }
 })
 
 
 /*
-const [users, setUsers] = useState([]);
-      const userCollectionRef = collection(db, "users")
+const data = doc(firestore, "Porch/pofevjljX988lklZ1EGC")
+    
+    const [time, setTime] = useState(0)
 
-      useEffect(() => {
+    useEffect(() => {
 
-        const getUsers = async () => {
-            const data = await getDocs(userCollectionRef)
-            setUsers(data.docs.map((doc) => ({...doc.data() , id:doc.id})))
+      function listenToDocument() {
+        onSnapshot(data, (docSnapshot) => {
+          if (docSnapshot.exists()) {
+            const docData = docSnapshot.data();
+            setTime(docData)
+          }
+         });
+      }
 
-            console.log("working")
-        }
-
-        getUsers()
-      }, [])
-
-
-      {users.map ((user) => {
-                  return (
-                    <Text>
-                      {""} 
-                      <Text key ={user.id}>
-                        name: {user.name}
-                      </Text>
-                      
-                    </Text>
-                  )
-                })}
+      listenToDocument()
+    }, [])
 */
