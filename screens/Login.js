@@ -6,6 +6,7 @@ import {
     signInWithEmailAndPassword, 
     createUserWithEmailAndPassword} 
     from "firebase/auth";
+import Colors from "../Colors"
 
 
 const Login = () => {
@@ -35,7 +36,7 @@ const Login = () => {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        // ..
+        alert(errorMessage)
       });
     }
    const handleLogin = () => {
@@ -48,6 +49,7 @@ const Login = () => {
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
+      alert(errorMessage)
     });
    }
 
@@ -99,7 +101,7 @@ export default Login
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: Colors.lighterDark,
         alignItems: 'center',
         justifyContent: 'center',
       },
@@ -110,10 +112,12 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         borderRadius: 5,
         marginTop: 10,
-        fontSize: 18
+        fontSize: 22
       },
       inputContainer: {
-          width: '80%',
+          width: '88%',
+          justifyContent: 'center',
+        alignItems: 'center',
       },
       buttonContainer: {
         width: '60%',
@@ -122,7 +126,7 @@ const styles = StyleSheet.create({
         marginTop: 30
       },
       button: {
-        backgroundColor: '#D75A5A',
+        backgroundColor: Colors.primary,
         width: "100%",
         padding: 15,
         borderRadius: 10,
@@ -135,19 +139,19 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         width: "100%",
         marginTop: 5, 
-        borderColor: '#D75A5A',
+        borderColor: Colors.primary,
         borderWidth: 2,
         padding: 15,
         borderRadius: 10,
       },
       buttonOutlineText: {
-        color: '#D75A5A',
+        color: Colors.primary,
         fontWeight: '700',
-        fontSize: 15
+        fontSize: 18
       },
       buttonText: {
         color: 'white',
         fontWeight: '700',
-        fontSize: 15
+        fontSize: 18
       },
 })

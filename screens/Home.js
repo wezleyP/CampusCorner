@@ -8,7 +8,9 @@ import {
   setDoc, 
   collection, 
   doc, 
-  addDoc  
+  addDoc,
+  query, 
+  getDocs
 } from "firebase/firestore";
 import {firestore} from '../Firebase'
 
@@ -20,17 +22,42 @@ import Colors from "../Colors"
 import RNPickerSelect from 'react-native-picker-select';
 
 const Home = (props) => {
-  const [dropDown, setDropDown] = useState('Place')
+  const [dropDown, setDropDown] = useState('Select an area...')
   const [textMinutes, setTextMinutes] = useState('')
   const [textHours, setTextHours] = useState('')
 
   const data = collection(firestore, dropDown)
 
-  async function addNewDoc() {
-  const newDoc = await addDoc(data, {
-    hours: textHours,
-    minutes: textMinutes
-  }); }
+
+  const submitForm = () => {
+    if (isNaN(parseFloat(textHours) || parseFloat(textMinutes)) || dropDown == 'Select an area...') {
+      alert("Hey ")
+    } else {
+      async function addNewDoc() {
+        const newDoc = await addDoc(data, {
+          hours: parseFloat(textHours),
+          minutes: parseFloat(textMinutes)
+          }); 
+        }
+        addNewDoc()
+    } //if
+  }//addNewDoc()
+
+  const [testingText, setTestingText] = useState('')
+async function ReadDocuments () {
+  const q = query(collection(firestore, "test"))
+  const querySnapshot = await getDocs(q);
+  querySnapshot.forEach((doc) => {
+    // doc.data() is never undefined for query doc snapshots
+    console.log(JSON.stringify(doc.data()))
+    return (
+      setTestingText(`${JSON.stringify(doc.data())}`)
+    )
+    
+  });
+}
+  
+  
 
 
     
@@ -50,7 +77,7 @@ const Home = (props) => {
             <TextInput
               value={textHours}
               style={styles.input}
-              placeholder='1'
+              placeholder=''
               maxLength={1}
               textAlign={'center'}
               onChangeText={(textHours) => setTextHours(textHours)}
@@ -61,7 +88,7 @@ const Home = (props) => {
             <TextInput
               value={textMinutes}
               style={styles.input}
-              placeholder='15'
+              placeholder=''
               maxLength={2}
               textAlign={'center'}
               onChangeText={(textMinutes) => setTextMinutes(textMinutes)}
@@ -76,14 +103,14 @@ const Home = (props) => {
             ]}
            >
              <Text style = {{fontSize: 20, color: Colors.lighterDark}}>
-               Select your Location...
+               {dropDown}
              </Text>
            </RNPickerSelect>
           </View>
           <View style={styles.buttonContainer}>
             <TouchableOpacity 
             style={styles.button}
-            onPress={() => addNewDoc()}
+            onPress={() => submitForm()}
             >
               <Text style={styles.buttonText} >
                 Submit
@@ -95,6 +122,14 @@ const Home = (props) => {
         <ScrollView>
           <Wait title ={"Porch"} document = { "Porch/pofevjljX988lklZ1EGC" }/>
           <Wait title ={"Nomptons"} document = { "Nomptons/VMHKi2df1viobBOPJyle" }/>
+          <TouchableOpacity style = {{alignItems:'center', marginTop: 20}} onPress= {() => ReadDocuments()}>
+            <Text style = {{fontSize: 35, color: 'white'}}>
+              button
+            </Text>
+          </TouchableOpacity>
+          <Text style = {{fontSize: 20, color: 'white'}}>
+              ~{testingText}~
+            </Text>
         </ScrollView>
         
 
