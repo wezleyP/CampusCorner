@@ -10,24 +10,29 @@ import {
   doc, 
   addDoc,
   query, 
-  getDocs
+  getDocs,
+  serverTimestamp
 } from "firebase/firestore";
 import {firestore} from '../Firebase'
 
 import Footer from '../Components/Footer'
 import Wait from '../Components/WaitTimes'
+import Data from './Data'
 
 import Colors from "../Colors"
 
 import RNPickerSelect from 'react-native-picker-select';
 
 const Home = (props) => {
+
+  
+
   const [dropDown, setDropDown] = useState('Select an area...')
   const [textMinutes, setTextMinutes] = useState('')
   const [textHours, setTextHours] = useState('')
 
   const data = collection(firestore, dropDown)
-
+  const navigation = useNavigation()
 
   const submitForm = () => {
     if (isNaN(parseFloat(textHours) || parseFloat(textMinutes)) || dropDown == 'Select an area...') {
@@ -36,34 +41,56 @@ const Home = (props) => {
       async function addNewDoc() {
         const newDoc = await addDoc(data, {
           hours: parseFloat(textHours),
-          minutes: parseFloat(textMinutes)
+          minutes: parseFloat(textMinutes),
+          time: Date()
           }); 
         }
         addNewDoc()
     } //if
   }//addNewDoc()
 
-  const [testingText, setTestingText] = useState('')
-async function ReadDocuments () {
+  const [testingText, setTestingText] = useState('');
+  
+
+ async function ReadDocuments () {
+  const q = query(collection(firestore, "test"))
+  const waitTimes = [];
+  const querySnapshot = await getDocs(q);
+  querySnapshot.forEach((doc) => {
+    waitTimes.push(doc.data())
+  });
+  setTestingText(JSON.stringify(waitTimes))
+ }
+  
+  
+
+/* 
+
+ JSON.stringify(doc.data())
+    waitTimes.push(doc.data())
+    JSON.parse(waitTimes)
+    console.log(waitTimes)
+
+const [testingText, setTestingText] = useState('');
+  const waitTimes = [];
+
+ async function ReadDocuments () {
   const q = query(collection(firestore, "test"))
   const querySnapshot = await getDocs(q);
   querySnapshot.forEach((doc) => {
-    // doc.data() is never undefined for query doc snapshots
-    console.log(JSON.stringify(doc.data()))
-    return (
-      setTestingText(`${JSON.stringify(doc.data())}`)
-    )
-    
+    waitTimes.push(doc.data())
+    console.log(waitTimes)
+    //setTestingText(JSON.parse(waitTimes))
   });
-}
-  
-  
-
-
+ }*/
     
     return (
       <View style = {styles.container}>
-        
+        <TouchableOpacity  onPress={() => navigation.navigate('Data')}>
+            <Text style = {{fontSize: 12, color: Colors.dark, marginTop: 5, backgroundColor: Colors.primary, borderRadius: 10, padding: 5}}>
+              Want To Check out Recent Submissions? Click Here
+            </Text>
+          </TouchableOpacity>
         <View style={styles.formView}>
           <Text style={styles.text}>
             Want a chance to win free gift cards?
@@ -96,7 +123,14 @@ async function ReadDocuments () {
           <View style={styles.dropDown}>
            <RNPickerSelect
            style={{backgroundColor: 'black', alignItems: 'center',justifyContent: 'center'}}
-              onValueChange={(value) => setDropDown(value)}
+              onValueChange={
+                (value) => {
+                  if (value != null) {
+                    setDropDown(value)
+                  }
+                  
+                }
+              }
               items={[
                 { label: 'Porch', value: 'Porch' },
                 { label: 'Nomptons', value: 'Nomptons' },
@@ -121,15 +155,7 @@ async function ReadDocuments () {
 
         <ScrollView>
           <Wait title ={"Porch"} document = { "Porch/pofevjljX988lklZ1EGC" }/>
-          <Wait title ={"Nomptons"} document = { "Nomptons/VMHKi2df1viobBOPJyle" }/>
-          <TouchableOpacity style = {{alignItems:'center', marginTop: 20}} onPress= {() => ReadDocuments()}>
-            <Text style = {{fontSize: 35, color: 'white'}}>
-              button
-            </Text>
-          </TouchableOpacity>
-          <Text style = {{fontSize: 20, color: 'white'}}>
-              ~{testingText}~
-            </Text>
+          <Wait title ={"Nomptons"} document = { "Nomptons/VMHKi2df1viobBOPJyle"}/>
         </ScrollView>
         
 

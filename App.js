@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import Home from './screens/Home';
+import Data from './screens/Data';
 import Login from './screens/Login';
 import Profile from './screens/Profile';
 import Colors from "./Colors"
@@ -34,6 +35,7 @@ export default function App() {
               fontSize: 18,
               
             },}}/>
+      
       <Stack.Screen name="Profile" component={Profile} 
         options = {{
           title : "Profile",
@@ -58,6 +60,18 @@ export default function App() {
             fontSize: 18,
             
           },}} />
+          <Stack.Screen name="Data" component={Data} 
+          options = {{
+            title : "Data",
+            headerStyle: {
+              backgroundColor: Colors.primary,
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+              fontSize: 18,
+              
+            },}}/>
           
       </Stack.Navigator>
       
