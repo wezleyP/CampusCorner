@@ -31,6 +31,8 @@ const Home = (props) => {
   const [textMinutes, setTextMinutes] = useState('')
   const [textHours, setTextHours] = useState('')
 
+  const date = new Date();
+
   const data = collection(firestore, dropDown)
   const navigation = useNavigation()
 
@@ -42,10 +44,11 @@ const Home = (props) => {
         const newDoc = await addDoc(data, {
           hours: parseFloat(textHours),
           minutes: parseFloat(textMinutes),
-          time: Date()
+          time: date.toString().slice(0, 24)
           }); 
         }
         addNewDoc()
+        alert("Thank You!")
     } //if
   }//addNewDoc()
 
@@ -63,26 +66,6 @@ const Home = (props) => {
  }
   
   
-
-/* 
-
- JSON.stringify(doc.data())
-    waitTimes.push(doc.data())
-    JSON.parse(waitTimes)
-    console.log(waitTimes)
-
-const [testingText, setTestingText] = useState('');
-  const waitTimes = [];
-
- async function ReadDocuments () {
-  const q = query(collection(firestore, "test"))
-  const querySnapshot = await getDocs(q);
-  querySnapshot.forEach((doc) => {
-    waitTimes.push(doc.data())
-    console.log(waitTimes)
-    //setTestingText(JSON.parse(waitTimes))
-  });
- }*/
     
     return (
       <View style = {styles.container}>
@@ -134,6 +117,7 @@ const [testingText, setTestingText] = useState('');
               items={[
                 { label: 'Porch', value: 'Porch' },
                 { label: 'Nomptons', value: 'Nomptons' },
+                
             ]}
            >
              <Text style = {{fontSize: 20, color: Colors.lighterDark}}>
@@ -154,8 +138,8 @@ const [testingText, setTestingText] = useState('');
           </View>
 
         <ScrollView>
-          <Wait title ={"Porch"} document = { "Porch/pofevjljX988lklZ1EGC" }/>
-          <Wait title ={"Nomptons"} document = { "Nomptons/VMHKi2df1viobBOPJyle"}/>
+          <Wait title ={"Porch"}/>
+          <Wait title ={"Nomptons"} />
         </ScrollView>
         
 

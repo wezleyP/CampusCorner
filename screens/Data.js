@@ -21,33 +21,36 @@ import { auth } from '../Firebase'
 
 const Data = () => {
 
-    const [testingText, setTestingText] = useState('');
-  
-
- async function ReadDocuments () {
-  const q = query(collection(firestore, "test"))
-  const waitTimes = [];
-  const querySnapshot = await getDocs(q);
-  querySnapshot.forEach((doc) => {
-    waitTimes.push(doc.data())
-  });
-  setTestingText(JSON.stringify(waitTimes))
- }
- 
+    const [dataStrings, setdataStrings] = useState([{hours: "Loading...", id: "loading"}]);
+    
+    useEffect(
+      () => onSnapshot(collection(firestore, "test"), (snapshot) => 
+        setdataStrings(snapshot.docs.map((doc) => ({...doc.data(), id: doc.id})))
+      ),[]); 
 
 
     return (
         <View style = {styles.container}>
             <View  style={styles.scroll}>
               <ScrollView>
-                <TouchableOpacity onPress = {() => ReadDocuments()}style={styles.button}>
-                  <Text style={styles.text}>
-                    Button
-                  </Text>
-                </TouchableOpacity>
-                  <Text style={styles.text}>
-                    ~ {testingText} ~
-                  </Text>
+                
+                  
+                    {dataStrings.map((dataStrings) => (
+                      <View style ={styles.dynamicView}key={dataStrings.id}>
+                        <Text style={styles.textsmaller}>
+                         Date submitted: {dataStrings.time}
+                        </Text>
+                        <Text style={styles.text} >
+                         Hours: {dataStrings.hours}
+                        </Text>
+                        <Text style={styles.text}>
+                         Minutes: {dataStrings.minutes}
+                        </Text>
+                        
+                      </View>
+                      
+                    ))}
+                  
                 
               </ScrollView>
             </View>
@@ -84,6 +87,12 @@ const styles = StyleSheet.create({
          elevation: 5,
          shadowOpacity: 0.8
       },
+      dynamicView:{
+        backgroundColor: Colors.dark,
+        marginTop: 5,
+        padding: 3,
+        borderRadius: 5
+      },
       button: {
         backgroundColor: Colors.primary,
         width: "100%",
@@ -95,6 +104,10 @@ const styles = StyleSheet.create({
       },
       text: {
           fontSize: 20,
+          color: "white"
+      },
+      textsmaller: {
+          fontSize: 11,
           color: "white"
       }
 })

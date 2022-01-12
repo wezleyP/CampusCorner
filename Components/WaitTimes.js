@@ -10,14 +10,18 @@ import Colors from "../Colors"
 const Wait = (props) => {
     
     let title = props.title
-    let document = props.document
 
-    let data = doc(firestore, document)
+    let porch =  doc(firestore, "Porch/hgj8GAUqHSLRlxeOIbZD")
+    let Nomptons =  doc(firestore, "nomptons/qVC1vGsRHUp7uvTib8X6")
+
+    let data = doc(firestore, "Porch/hgj8GAUqHSLRlxeOIbZD")
     
-    const [time, setTime] = useState(0)
+    const [time, setTime] = useState("")
+
+
 
     useEffect(() => {
-        let isMounted = true;
+        
       function listenToDocument() {
         onSnapshot(data, (docSnapshot) => {
           if (docSnapshot.exists()) {
