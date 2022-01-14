@@ -3,36 +3,33 @@ import React, { useEffect, useState } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, TextInput} from 'react-native'
 import { 
   getDoc, 
-  getFirestore, 
-  onSnapshot, 
-  setDoc, 
+  
   collection, 
   doc, 
   addDoc,
-  query, 
-  getDocs,
-  serverTimestamp
+  
 } from "firebase/firestore";
 import {firestore} from '../Firebase'
 
 import Footer from '../Components/Footer'
-import Wait from '../Components/WaitTimes'
-import Data from './Data'
+import Wait from '../Components/Wait'
 
 import Colors from "../Colors"
 
 import RNPickerSelect from 'react-native-picker-select';
 
-const Home = (props) => {
+const Home = () => {
 
   
-
+  
+  
+  //form
   const [dropDown, setDropDown] = useState('Select an area...')
   const [textMinutes, setTextMinutes] = useState('')
   const [textHours, setTextHours] = useState('')
-
   const date = new Date();
-
+  
+  
   const data = collection(firestore, dropDown)
   const navigation = useNavigation()
 
@@ -51,29 +48,21 @@ const Home = (props) => {
         alert("Thank You!")
     } //if
   }//addNewDoc()
-
-  const [testingText, setTestingText] = useState('');
-  
-
- async function ReadDocuments () {
-  const q = query(collection(firestore, "test"))
-  const waitTimes = [];
-  const querySnapshot = await getDocs(q);
-  querySnapshot.forEach((doc) => {
-    waitTimes.push(doc.data())
-  });
-  setTestingText(JSON.stringify(waitTimes))
- }
-  
-  
-    
+// scroll view
+// include the title of wiat times and take out the average sentence
     return (
       <View style = {styles.container}>
         <TouchableOpacity  onPress={() => navigation.navigate('Data')}>
-            <Text style = {{fontSize: 12, color: Colors.dark, marginTop: 5, backgroundColor: Colors.primary, borderRadius: 10, padding: 5}}>
-              Want To Check out Recent Submissions? Click Here
+            <Text style = {styles.topButton}>
+              Want to see the latest submissions? 
+              Click Here!
             </Text>
           </TouchableOpacity>
+
+          <ScrollView style= {styles.scroll}>
+            <Wait/>
+          </ScrollView>
+
         <View style={styles.formView}>
           <Text style={styles.text}>
             Want a chance to win free gift cards?
@@ -111,13 +100,11 @@ const Home = (props) => {
                   if (value != null) {
                     setDropDown(value)
                   }
-                  
                 }
               }
               items={[
                 { label: 'Porch', value: 'Porch' },
                 { label: 'Nomptons', value: 'Nomptons' },
-                
             ]}
            >
              <Text style = {{fontSize: 20, color: Colors.lighterDark}}>
@@ -137,10 +124,7 @@ const Home = (props) => {
           </View>
           </View>
 
-        <ScrollView>
-          <Wait title ={"Porch"}/>
-          <Wait title ={"Nomptons"} />
-        </ScrollView>
+        
         
 
        <Footer />
@@ -150,6 +134,42 @@ const Home = (props) => {
 
 export default Home
 
+
+
+
+
+
+/*
+{dataStrings.map((dataStrings) => (
+  <View style ={styles.dynamicView}key={dataStrings.id}>
+    <Text style={styles.textsmaller}>
+     Date submitted: {dataStrings.time}
+    </Text>
+    <Text style={styles.text} >
+     Hours: {dataStrings.hours}
+    </Text>
+    <Text style={styles.text}>
+     Minutes: {dataStrings.minutes}
+    </Text>
+    
+  </View>
+  
+))}
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -157,7 +177,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-
+  topButton: {
+    fontSize: 15, 
+    color: Colors.dark, 
+    marginTop: 8, 
+    backgroundColor: Colors.primary, 
+    borderRadius: 10, 
+    padding: 5
+  },
   //form
   formView: {
     alignItems: 'center',
@@ -166,7 +193,7 @@ const styles = StyleSheet.create({
      backgroundColor: Colors.lighterDark,
      padding: 10,
      borderRadius: 4,
-     marginTop: 10,
+     marginTop: 8,
       shadowColor: Colors.primary,
       shadowOffset: { width: 2, height: 3 },
       shadowRadius: 1,
@@ -233,7 +260,15 @@ const styles = StyleSheet.create({
           fontSize: 15
         },
 
+//Wait 
+scroll: {
+ height: 100
+}
+
+
 })
+
+
 
 
 /*
