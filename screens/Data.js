@@ -5,53 +5,73 @@ import Colors from "../Colors"
 import Footer from '../Components/Footer'
 
 import { 
-  getDoc, 
-  getFirestore, 
+
   onSnapshot, 
-  setDoc, 
   collection, 
-  doc, 
-  addDoc,
-  query, 
-  getDocs,
-  serverTimestamp
+  
 } from "firebase/firestore";
 import {firestore} from '../Firebase'
-import { auth } from '../Firebase'
+
 
 const Data = () => {
 
-    const [dataStrings, setdataStrings] = useState([{hours: "Loading...", id: "loading"}]);
+    const [porchData, setPorchData] = useState([{hours: "Loading...", id: "loading"}]);
+    const [nomptonsData, setNomptonsData] = useState([{hours: "Loading...", id: "loading"}]);
     
     useEffect(
-      () => onSnapshot(collection(firestore, "test"), (snapshot) => 
-        setdataStrings(snapshot.docs.map((doc) => ({...doc.data(), id: doc.id})))
+      () => onSnapshot(collection(firestore, "Porch"), (snapshot) => 
+        setPorchData(snapshot.docs.map((doc) => ({...doc.data(), id: doc.id})))
+      ),[]); 
+    useEffect(
+        () => onSnapshot(collection(firestore, "Nomptons"), (snapshot) => 
+        setNomptonsData(snapshot.docs.map((doc) => ({...doc.data(), id: doc.id}))) 
       ),[]); 
 
-
+      
+      
     return (
         <View style = {styles.container}>
             <View  style={styles.scroll}>
-              <ScrollView>
-                
+              <ScrollView>         
                   
-                    {dataStrings.map((dataStrings) => (
-                      <View style ={styles.dynamicView}key={dataStrings.id}>
+                    {porchData.map((porchData) => (
+                      <View style ={styles.dynamicView}key={porchData.id}>
+                        <View style={styles.centeredText}>
+                          <Text style={styles.headerText}>
+                          Porch
+                          </Text>
+                        </View>
                         <Text style={styles.textsmaller}>
-                         Date submitted: {dataStrings.time}
+                         Date submitted: {porchData.time}
                         </Text>
                         <Text style={styles.text} >
-                         Hours: {dataStrings.hours}
+                         Hours: {porchData.hours}
                         </Text>
                         <Text style={styles.text}>
-                         Minutes: {dataStrings.minutes}
+                         Minutes: {porchData.minutes} 
+                        </Text>
+                      </View>       
+                    ))}
+                    {nomptonsData.map((nomptonsData) => (
+                      <View style ={styles.dynamicView}key={nomptonsData.id}>
+                        <View style={styles.centeredText}>
+                          <Text style={styles.headerText}>
+                          Nomptons
+                          </Text>
+                        </View>
+                        <Text style={styles.textsmaller}>
+                         Date submitted: {nomptonsData.time}
                         </Text>
                         
-                      </View>
-                      
+                        <Text style={styles.text} >
+                         Hours: {nomptonsData.hours}
+                        </Text>
+                        <Text style={styles.text}>
+                         Minutes: {nomptonsData.minutes}
+                        </Text>
+                      </View>       
                     ))}
-                  
-                
+                    
               </ScrollView>
             </View>
                 
@@ -91,7 +111,8 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.dark,
         marginTop: 5,
         padding: 3,
-        borderRadius: 5
+        borderRadius: 5,
+        
       },
       button: {
         backgroundColor: Colors.primary,
@@ -102,12 +123,22 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginTop: 5
       },
-      text: {
-          fontSize: 20,
+      centeredText: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: Colors.lighterDark
+    },
+      headerText: {
+          fontSize: 22,
           color: "white"
       },
+      text: {
+          fontSize: 18,
+          color: "white"
+      },
+      
       textsmaller: {
-          fontSize: 11,
+          fontSize: 15,
           color: "white"
       }
 })

@@ -20,9 +20,6 @@ import RNPickerSelect from 'react-native-picker-select';
 
 const Home = () => {
 
-  
-  
-  
   //form
   const [dropDown, setDropDown] = useState('Select an area...')
   const [textMinutes, setTextMinutes] = useState('')
@@ -52,17 +49,20 @@ const Home = () => {
 // include the title of wiat times and take out the average sentence
     return (
       <View style = {styles.container}>
-        <TouchableOpacity  onPress={() => navigation.navigate('Data')}>
+        <TouchableOpacity style={{alignContent: 'center', justifyContent:'center'}} onPress={() => navigation.navigate('Data')}>
             <Text style = {styles.topButton}>
               Want to see the latest submissions? 
               Click Here!
             </Text>
           </TouchableOpacity>
+          
+          <View style= {styles.scroll}>
+            <ScrollView >
+             <Wait/>
+            </ScrollView>
+          </View>
 
-          <ScrollView style= {styles.scroll}>
-            <Wait/>
-          </ScrollView>
-
+      <View style={styles.bottomPart}>
         <View style={styles.formView}>
           <Text style={styles.text}>
             Want a chance to win free gift cards?
@@ -122,79 +122,46 @@ const Home = () => {
               </Text>
             </TouchableOpacity>
           </View>
-          </View>
-
-        
-        
+         </View>
+        </View>
 
        <Footer />
+
       </View>
     )
 }
 
-export default Home
-
-
-
-
-
-
-/*
-{dataStrings.map((dataStrings) => (
-  <View style ={styles.dynamicView}key={dataStrings.id}>
-    <Text style={styles.textsmaller}>
-     Date submitted: {dataStrings.time}
-    </Text>
-    <Text style={styles.text} >
-     Hours: {dataStrings.hours}
-    </Text>
-    <Text style={styles.text}>
-     Minutes: {dataStrings.minutes}
-    </Text>
-    
-  </View>
-  
-))}
-*/
-
-
-
-
-
-
-
-
-
-
-
-
+export default Home;
 
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.dark,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   topButton: {
     fontSize: 15, 
-    color: Colors.dark, 
-    marginTop: 8, 
-    backgroundColor: Colors.primary, 
+    color: "white", 
+    backgroundColor: Colors.lighterDark, 
     borderRadius: 10, 
-    padding: 5
+    padding: 5,
+    margin: 5,
+  },
+  bottomPart: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    
   },
   //form
   formView: {
     alignItems: 'center',
      justifyContent: 'center',
+     alignContent: 'center',
      width: "95%",
      backgroundColor: Colors.lighterDark,
      padding: 10,
      borderRadius: 4,
-     marginTop: 8,
-      shadowColor: Colors.primary,
+      shadowColor: Colors.secondary,
       shadowOffset: { width: 2, height: 3 },
       shadowRadius: 1,
       elevation: 5,
@@ -259,11 +226,13 @@ const styles = StyleSheet.create({
           fontWeight: '700',
           fontSize: 15
         },
+        scroll: {
+          marginTop: 10,
+          marginBottom: 10,
+          height: '45%'
 
-//Wait 
-scroll: {
- height: 100
-}
+        }
+
 
 
 })
