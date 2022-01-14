@@ -16,7 +16,6 @@ import RNPickerSelect from 'react-native-picker-select';
 
 const Home = () => {
 
-
   //form
   const [dropDown, setDropDown] = useState('Select an area...')
   const [textMinutes, setTextMinutes] = useState('')
