@@ -28,7 +28,7 @@ const Home = () => {
 
   const submitForm = () => {
     if (isNaN(parseFloat(textHours) || parseFloat(textMinutes)) || dropDown == 'Select an area...') {
-      alert("Hey ")
+      alert("Make sure everything is filled out bud...")
     } else {
       async function addNewDoc() {
         const newDoc = await addDoc(data, {
@@ -36,9 +36,13 @@ const Home = () => {
           minutes: parseFloat(textMinutes),
           time: date.toString().slice(0, 24)
           }); 
+          
+        }
+        async function alerty () {
+          await alert("Thanks bud")
         }
         addNewDoc()
-        alert("Thank You!")
+        alerty()
     } //if
   }//addNewDoc()
 
@@ -50,18 +54,13 @@ const Home = () => {
               Click Here!
             </Text>
           </TouchableOpacity>
-          <View>
-            
-          </View>
-          <View style= {styles.scroll}>
-            <ScrollView >
-             <Wait/>
+
+          <View style={styles.scroll}>
+            <ScrollView>
+              <Wait/>
             </ScrollView>
           </View>
-
-          <ScrollView style= {styles.scroll}>
-            <Wait/>
-          </ScrollView>
+      <View style={styles.bottomPart}>
 
         <View style={styles.formView}>
           <Text style={styles.text}>
@@ -122,11 +121,8 @@ const Home = () => {
               </Text>
             </TouchableOpacity>
           </View>
-          </View>
-
-        
-        
-
+        </View>
+      </View> 
        <Footer />
       </View>
     )
@@ -136,46 +132,11 @@ export default Home
 
 
 
-
-
-
-/*
-{dataStrings.map((dataStrings) => (
-  <View style ={styles.dynamicView}key={dataStrings.id}>
-    <Text style={styles.textsmaller}>
-     Date submitted: {dataStrings.time}
-    </Text>
-    <Text style={styles.text} >
-     Hours: {dataStrings.hours}
-    </Text>
-    <Text style={styles.text}>
-     Minutes: {dataStrings.minutes}
-    </Text>
-    
-  </View>
-  
-))}
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.dark,
-    alignItems: 'center',
-    justifyContent: 'center',
+    
   },
   touchable: {
     alignItems: 'center',
@@ -270,7 +231,7 @@ const styles = StyleSheet.create({
         scroll: {
           marginTop: 10,
           marginBottom: 10,
-          height: '45%'
+          height: '46%'
 
         }
 })
