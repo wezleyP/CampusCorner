@@ -16,7 +16,6 @@ import RNPickerSelect from 'react-native-picker-select';
 
 const Home = () => {
 
-
   //form
   const [dropDown, setDropDown] = useState('Select an area...')
   const [textMinutes, setTextMinutes] = useState('')
@@ -60,7 +59,10 @@ const Home = () => {
             </ScrollView>
           </View>
 
-      <View style={styles.bottomPart}>
+          <ScrollView style= {styles.scroll}>
+            <Wait/>
+          </ScrollView>
+
         <View style={styles.formView}>
           <Text style={styles.text}>
             Want a chance to win free gift cards?
@@ -120,22 +122,60 @@ const Home = () => {
               </Text>
             </TouchableOpacity>
           </View>
-         </View>
-        </View>
+          </View>
+
+        
+        
 
        <Footer />
-
       </View>
     )
 }
 
-export default Home;
+export default Home
+
+
+
+
+
+
+/*
+{dataStrings.map((dataStrings) => (
+  <View style ={styles.dynamicView}key={dataStrings.id}>
+    <Text style={styles.textsmaller}>
+     Date submitted: {dataStrings.time}
+    </Text>
+    <Text style={styles.text} >
+     Hours: {dataStrings.hours}
+    </Text>
+    <Text style={styles.text}>
+     Minutes: {dataStrings.minutes}
+    </Text>
+    
+  </View>
+  
+))}
+*/
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.dark,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   touchable: {
     alignItems: 'center',
@@ -158,12 +198,12 @@ const styles = StyleSheet.create({
   formView: {
     alignItems: 'center',
      justifyContent: 'center',
-     alignContent: 'center',
      width: "95%",
      backgroundColor: Colors.lighterDark,
      padding: 10,
      borderRadius: 4,
-      shadowColor: Colors.secondary,
+     marginTop: 8,
+      shadowColor: Colors.primary,
       shadowOffset: { width: 2, height: 3 },
       shadowRadius: 1,
       elevation: 5,

@@ -14,7 +14,6 @@ import Colors from "../Colors"
 
 
 const Wait = () => {
-
   const [porchVar, setPorchVar] = useState([{hours: "Loading...", id: doc.id}])
   const [porchDataWait, setPorchDataWait] = useState([{hours: "Loading...", id: "loading"}]);
   const [nomptonsDataWait, setNomptonsDataWait] = useState([{hours: "Loading...", id: "loading"}]);
@@ -73,47 +72,37 @@ const Wait = () => {
 
       <View style={styles.mainWaitTimeView}>
         
-            <Text style={styles.headerText}>
+        <View style={styles.waitTimeTextView}>
+            <Text style={styles.waitTimeHeaderText}>
               Porch
+            </Text>
+            <Text style={styles.waitText}>
+              Wait Time
             </Text>
             <Text style = {styles.waitText}>
                 Hours: {porchVar.porchAvgHours}
             </Text>
-            
+            <Text style = {styles.space}/>
             <Text style = {styles.waitText}>
                 Minutes: {porchVar.porchAvgMinutes}
             </Text>
-        
+        </View>
       </View>
-
       <View style={styles.waitTimeView}>
-        
-         <Text style={styles.headerText}>
-            Nomptons 
+        <Text style={styles.waitTimeHeaderText}>
+          Nomptons
         </Text>
-            <Text style = {styles.waitText}>
-            Hours: {porchVar.nomptonsAvgHours}
+        <View style={styles.waitTimeTextView}>
+            <Text style={styles.waitText}>
+              The Average Wait Time at the Porch is
             </Text>
-            
+            <Text style = {styles.waitText}>
+                Hours: {porchVar.nomptonsAvgHours}
+            </Text>
             <Text style = {styles.waitText}>
                 Minutes: {porchVar.nomptonsAvgMinutes}
             </Text>
-       
-      </View>
-      <View style={styles.waitTimeView}>
-        
-            <Text style={styles.headerText}>
-              Porch
-            </Text>
-
-            <Text style = {styles.waitText}>
-                Hours: {porchVar.porchAvgHours}
-            </Text>
-            
-            <Text style = {styles.waitText}>
-                Minutes: {porchVar.porchAvgMinutes}
-            </Text>
-        
+        </View>
       </View>
   </View>
   )
@@ -147,6 +136,12 @@ const styles = StyleSheet.create({
   waitTimeView: {
     alignItems: "center",
     justifyContent: 'center',
+    flexWrap: "wrap",
+  },
+  waitTimeTextView: {
+    flexDirection: "row",
+    justifyContent: "center",
+    flexWrap: "wrap",
     backgroundColor: Colors.lighterDark,
     borderRadius: 10,
     width: "92%",
@@ -156,17 +151,14 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 2, height: 3 },
     shadowRadius: 1,
     elevation: 5,
-    shadowOpacity: 0.8,
-    marginTop: 20
+    shadowOpacity: 0.8
+  },waitTimeHeaderText: {
+    color: "white",
+    fontSize: 40,
   },
     waitText: {
      fontWeight: '700',
      fontSize: 20,
-     color: "white",
-    },
-    headerText: {
-     fontWeight: '700',
-     fontSize: 30,
      color: "white",
     },
     space: {
