@@ -41,7 +41,7 @@ export default Footer;
 const styles = StyleSheet.create({
     
     text: {
-        fontSize: 18,
+        fontSize: 19,
         alignItems: 'center',
         color: 'white'
     },
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
         bottom: 0,
         width: "100%",
         height: 60,
-        backgroundColor: Colors.primary
+        backgroundColor: Colors.lighterDark
     },
     line: {
         backgroundColor: Colors.dark,

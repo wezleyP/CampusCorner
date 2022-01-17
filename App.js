@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { LogBox, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 
 import Home from './screens/Home';
 import Data from './screens/Data';
@@ -16,9 +17,7 @@ const Stack = createNativeStackNavigator();
 
 
 export default function App() {
-
   
-
   
   return (
     <NavigationContainer>
@@ -40,7 +39,7 @@ export default function App() {
         options = {{
           title : "Profile",
           headerStyle: {
-            backgroundColor: Colors.primary,
+            backgroundColor: Colors.lighterDark,
           },
           headerTintColor: '#fff',
           headerTitleStyle: {
@@ -50,9 +49,9 @@ export default function App() {
           },}}/>
         <Stack.Screen name="Home" component={Home}
         options = {{
-          title : "Home",
+          title : "Campus Corner Lines",
           headerStyle: {
-            backgroundColor: Colors.primary,
+            backgroundColor: Colors.lighterDark,
           },
           headerTintColor: '#fff',
           headerTitleStyle: {
@@ -64,7 +63,7 @@ export default function App() {
           options = {{
             title : "Data",
             headerStyle: {
-              backgroundColor: Colors.primary,
+              backgroundColor: Colors.lighterDark
             },
             headerTintColor: '#fff',
             headerTitleStyle: {

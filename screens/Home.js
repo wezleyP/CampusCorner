@@ -2,12 +2,8 @@ import { useNavigation } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, TextInput} from 'react-native'
 import { 
-  getDoc, 
-  
   collection, 
-  doc, 
   addDoc,
-  
 } from "firebase/firestore";
 import {firestore} from '../Firebase'
 
@@ -19,6 +15,7 @@ import Colors from "../Colors"
 import RNPickerSelect from 'react-native-picker-select';
 
 const Home = () => {
+
 
   //form
   const [dropDown, setDropDown] = useState('Select an area...')
@@ -45,17 +42,18 @@ const Home = () => {
         alert("Thank You!")
     } //if
   }//addNewDoc()
-// scroll view
-// include the title of wiat times and take out the average sentence
+
     return (
       <View style = {styles.container}>
-        <TouchableOpacity style={{alignContent: 'center', justifyContent:'center'}} onPress={() => navigation.navigate('Data')}>
+        <TouchableOpacity style={styles.touchable} onPress={() => navigation.navigate('Data')}>
             <Text style = {styles.topButton}>
               Want to see the latest submissions? 
               Click Here!
             </Text>
           </TouchableOpacity>
-          
+          <View>
+            
+          </View>
           <View style= {styles.scroll}>
             <ScrollView >
              <Wait/>
@@ -139,20 +137,24 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.dark,
   },
-  topButton: {
-    fontSize: 15, 
-    color: "white", 
-    backgroundColor: Colors.lighterDark, 
-    borderRadius: 10, 
-    padding: 5,
-    margin: 5,
+  touchable: {
+    alignItems: 'center',
+    justifyContent: 'center',
   },
+  topButton: {
+    fontSize: 16.5, 
+    color: "white", 
+    backgroundColor: Colors.primary, 
+    borderRadius: 10, 
+    padding: 6,
+    marginTop: 7,
+  },
+  //form
   bottomPart: {
     alignItems: 'center',
     justifyContent: 'center',
     
   },
-  //form
   formView: {
     alignItems: 'center',
      justifyContent: 'center',
@@ -181,7 +183,6 @@ const styles = StyleSheet.create({
       width: "75%",
       alignItems: 'center',
       justifyContent: 'center',
-      
       padding: 5,
       fontSize: 20,
       borderRadius: 5
@@ -232,9 +233,6 @@ const styles = StyleSheet.create({
           height: '45%'
 
         }
-
-
-
 })
 
 
