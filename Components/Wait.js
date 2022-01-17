@@ -105,6 +105,7 @@ const Wait = () => {
             <Text style={styles.headerText}>
               Porch
             </Text>
+
             <Text style = {styles.waitText}>
                 Hours: {porchVar.porchAvgHours}
             </Text>
