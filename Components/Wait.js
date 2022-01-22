@@ -18,8 +18,9 @@ const Wait = () => {
   const [porchVar, setPorchVar] = useState([{hours: "Loading...", id: doc.id}])
   const [porchDataWait, setPorchDataWait] = useState([{hours: "Loading...", id: "loading"}]);
   const [nomptonsDataWait, setNomptonsDataWait] = useState([{hours: "Loading...", id: "loading"}]);
-  
-  let avgs = doc(firestore, "Averages/rWIghnvyYMOHMNsEXtlp")
+  const [averagingVar, setAveragingVar] = useState([]);
+     
+  const avgs = doc(firestore, "Averages/rWIghnvyYMOHMNsEXtlp")
   
   useEffect(() => { 
 
@@ -28,9 +29,7 @@ const Wait = () => {
       );
     onSnapshot(collection(firestore, "Porch"), (snapshot) => (
       setPorchDataWait(snapshot.docs.map((doc) => ({...doc.data(), id: doc.id}))))
-      );
-      
-      
+      ); 
 
     function listenToDocument() {
       onSnapshot(avgs, (docSnapshot) => {
@@ -41,28 +40,19 @@ const Wait = () => {
         }
        });
     }
-    
-   //takes average and updates doc
-   
+    //const average = (array) => array.reduce((a, b) => a + b) / array.length;
+    //console.log(average(porchDataWait.Hours));
     listenToDocument()
   }, [])
 
-  useEffect(() => {
-    async function average() {
-       const grades = await nomptonsDataWait.map((nomptonsDataWait) => {
-       return (nomptonsDataWait.minutes)
-     })  
   
-       function getAvg(grades) {
-         const total = grades.reduce((acc, c) => acc + c, 0);
-         return total / grades.length
-       }
-  
-       const average = getAvg(grades);
-       console.log(average)
-    }
-     average()
-  }, [])
+    
+   /*
+const grades = await nomptonsDataWait.map((nomptonsDataWait) => {
+      return  (nomptonsDataWait.minutes)
+    })  
+   */
+ 
   
 
   return (
@@ -71,9 +61,6 @@ const Wait = () => {
       <View style={styles.mainWaitTimeView}>
             <Text style={styles.waitTimeHeaderText}>
               Porch
-            </Text>
-            <Text style={styles.waitText}>
-              Wait Time
             </Text>
             <Text style = {styles.waitText}>
                 Hours: {porchVar.porchAvgHours}
@@ -87,9 +74,6 @@ const Wait = () => {
         <Text style={styles.waitTimeHeaderText}>
           Nomptons
         </Text>
-            <Text style={styles.waitText}>
-              Wait Time
-            </Text>
             <Text style = {styles.waitText}>
                 Hours: {porchVar.nomptonsAvgHours}
             </Text>
@@ -98,19 +82,17 @@ const Wait = () => {
             </Text>
       </View>
       <View style={styles.waitTimeView}>
-        <Text style={styles.waitTimeHeaderText}>
-          Nomptons
-        </Text>
-            <Text style={styles.waitText}>
-              Wait Time
+            <Text style={styles.waitTimeHeaderText}>
+                More to Come!
             </Text>
             <Text style = {styles.waitText}>
-                Hours: {porchVar.nomptonsAvgHours}
+                Hours: 
             </Text>
             <Text style = {styles.waitText}>
-                Minutes: {porchVar.nomptonsAvgMinutes}
+                Minutes: 
             </Text>
       </View>
+      
   </View>
   )
 }
@@ -131,7 +113,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: "92%",
     padding: 4,
-    marginTop: 5,
+    marginTop: "2%",
     shadowColor: Colors.primary,
     shadowOffset: { width: 2, height: 3 },
     shadowRadius: 1,
@@ -145,7 +127,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: "92%",
     padding: 4,
-    marginTop:10,
+    marginTop:"2%",
     shadowColor: Colors.primary,
     shadowOffset: { width: 2, height: 3 },
     shadowRadius: 1,

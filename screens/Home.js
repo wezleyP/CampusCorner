@@ -6,6 +6,7 @@ import {
   addDoc,
 } from "firebase/firestore";
 import {firestore} from '../Firebase'
+import {auth} from '../Firebase'
 
 import Footer from '../Components/Footer'
 import Wait from '../Components/Wait'
@@ -27,19 +28,21 @@ const Home = () => {
   const navigation = useNavigation()
 
   const submitForm = () => {
-    if (isNaN(parseFloat(textHours) || parseFloat(textMinutes)) || dropDown == 'Select an area...') {
-      alert("Make sure everything is filled out bud...")
+    if ( auth.currentUser?.email==null || textHours >2 || textMinutes > 59 || isNaN(parseFloat(textHours) || parseFloat(textMinutes)) || dropDown == 'Select an area...') {
+      alert("Make sure you're signed in or completed the form")
     } else {
       async function addNewDoc() {
+        let isMounted = true; 
         const newDoc = await addDoc(data, {
           hours: parseFloat(textHours),
           minutes: parseFloat(textMinutes),
-          time: date.toString().slice(0, 24)
+          time: date.toString().slice(0, 24),
+          userToken: auth.currentUser.email
           }); 
           
         }
-        async function alerty () {
-          await alert("Thanks bud")
+         function alerty () {
+          alert("Thanks bud")
         }
         addNewDoc()
         alerty()
@@ -48,14 +51,15 @@ const Home = () => {
 
     return (
       <View style = {styles.container}>
-        <TouchableOpacity style={styles.touchable} onPress={() => navigation.navigate('Data')}>
+        
+
+          <View style={styles.scroll}>
+          <TouchableOpacity style={styles.touchable} onPress={() => navigation.navigate('Data')}>
             <Text style = {styles.topButton}>
               Want to see the latest submissions? 
               Click Here!
             </Text>
           </TouchableOpacity>
-
-          <View style={styles.scroll}>
             <ScrollView>
               <Wait/>
             </ScrollView>
@@ -147,23 +151,28 @@ const styles = StyleSheet.create({
     color: "white", 
     backgroundColor: Colors.primary, 
     borderRadius: 10, 
-    padding: 6,
-    marginTop: 7,
+    padding: "3%",
+    marginTop: '2%'
+  },
+  scroll: {
+   height: "60%"
   },
   //form
   bottomPart: {
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center',
+    height: "40%"
     
   },
   formView: {
+    position:"absolute",
+    bottom: "23%",
     alignItems: 'center',
      justifyContent: 'center',
      width: "95%",
      backgroundColor: Colors.lighterDark,
-     padding: 10,
+     padding: 5,
      borderRadius: 4,
-     marginTop: 8,
       shadowColor: Colors.primary,
       shadowOffset: { width: 2, height: 3 },
       shadowRadius: 1,
@@ -172,11 +181,11 @@ const styles = StyleSheet.create({
     },
     text: {
         fontWeight: '700',
-        fontSize: 18,
+        fontSize: 15,
         color: "white",
       },
         smallText: {
-            fontSize: 15,
+            fontSize: 14,
             color: "white"
         },
     input: {
@@ -184,8 +193,8 @@ const styles = StyleSheet.create({
       width: "75%",
       alignItems: 'center',
       justifyContent: 'center',
-      padding: 5,
-      fontSize: 20,
+      
+      fontSize: 19,
       borderRadius: 5
     },
     dropDown: {
@@ -193,21 +202,20 @@ const styles = StyleSheet.create({
       width: "75%",
       alignItems: 'center',
       justifyContent: 'center',
-      marginTop: 14,
-      padding: 5,
-      fontSize: 25,
+      marginTop: 12,
+      padding: 1,
       borderRadius: 5
     },
         buttonContainer: {
           width: '60%',
           justifyContent: 'center',
           alignItems: 'center',
-          marginTop: 13
+          marginTop: 10
         },
         button: {
           backgroundColor: Colors.primary,
           width: "100%",
-          padding: 10,
+          padding: 6,
           borderRadius: 10,
           justifyContent: 'center',
           alignItems: 'center',
@@ -217,10 +225,8 @@ const styles = StyleSheet.create({
           alignItems: 'center',
           backgroundColor: 'white',
           width: "80%",
-          
           borderColor: '#D75A5A',
           borderWidth: 2,
-          padding: 15,
           borderRadius: 10,
         },
         buttonText: {
@@ -228,12 +234,7 @@ const styles = StyleSheet.create({
           fontWeight: '700',
           fontSize: 15
         },
-        scroll: {
-          marginTop: 10,
-          marginBottom: 10,
-          height: '46%'
-
-        }
+        
 })
 
 

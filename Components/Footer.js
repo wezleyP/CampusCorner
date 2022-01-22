@@ -12,7 +12,7 @@ const Footer = () => {
         <View style = {styles.footer}>
         
             <TouchableOpacity
-            onPress={() => navigation.replace("Home")}
+            onPress={() => navigation.navigate("Home")}
             style={styles.buttonOutline}
             >
                 <Text style = {styles.text}>
@@ -23,7 +23,7 @@ const Footer = () => {
              <Text style={styles.line} />
 
             <TouchableOpacity
-            onPress={() => navigation.replace("Profile")}
+            onPress={() => navigation.navigate("Profile")}
             style={styles.buttonOutline}
             >
                 <Text style = {styles.text}>
@@ -41,12 +41,12 @@ export default Footer;
 const styles = StyleSheet.create({
     
     text: {
-        fontSize: 19,
+        fontSize: 18,
         alignItems: 'center',
         color: 'white'
     },
     buttonOutline: {
-        
+
         padding: 10,
         paddingHorizontal: 50
       },
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         bottom: 0,
         width: "100%",
-        height: 60,
+        height: "8%",
         backgroundColor: Colors.lighterDark
     },
     line: {

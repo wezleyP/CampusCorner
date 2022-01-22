@@ -106,6 +106,7 @@ const styles = StyleSheet.create({
       },
       dynamicView:{
         backgroundColor: Colors.dark,
+        width: "100%",
         marginTop: 5,
         padding: 3,
         borderRadius: 5
@@ -133,7 +134,7 @@ const styles = StyleSheet.create({
           color: "white"
       },
       textsmaller: {
-          fontSize: 11,
+          fontSize: 14,
           color: "white"
       }
 })
